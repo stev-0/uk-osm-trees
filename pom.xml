@@ -53,7 +53,42 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.openstreetmap.osmosis</groupId>
+            <artifactId>osmosis-core</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap.osmosis</groupId>
+            <artifactId>osmosis-xml</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap.osmosis</groupId>
+            <artifactId>osmosis-dataset</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap.osmosis</groupId>
+            <artifactId>osmosis-dataset</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap.osmosis</groupId>
+            <artifactId>osmosis-tagfilter</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap.osmosis</groupId>
+            <artifactId>osmosis-extract</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.10</version>
+        </dependency>
+        
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -78,6 +113,11 @@
             <artifactId>appengine-api-stubs</artifactId>
             <version>${appengine.target.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.google.cloud</groupId>
+          <artifactId>gcloud-java-storage</artifactId>
+          <version>0.2.0</version>
         </dependency>
     </dependencies>
       
@@ -108,6 +148,11 @@
                 <version>${appengine.target.version}</version>
                 <configuration>
                 </configuration>
+            </plugin>
+            <plugin>
+               <groupId>com.google.appengine</groupId>
+               <artifactId>gcloud-maven-plugin</artifactId>
+               <version>2.0.9.111.v20160525</version>
             </plugin>
         </plugins>
     </build>
