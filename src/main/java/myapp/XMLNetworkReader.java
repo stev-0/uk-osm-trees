@@ -78,7 +78,7 @@ public class XMLNetworkReader implements RunnableSource {
 					createCompressionInputStream(is);
 
 			parser = SaxParserFactory.createParser();
-			log.log(Level.INFO, "JHJ");
+			log.log(Level.INFO, "JHjhJ");
 			parser.parse(inputStream, new OsmHandler(sink, enableDateParsing));
 			
 			sink.complete();

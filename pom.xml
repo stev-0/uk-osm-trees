@@ -18,21 +18,23 @@
     <packaging>war</packaging>
     <version>1.0</version>
 
-    <groupId>com.google.appengine.demos</groupId>
-    <artifactId>appengine-try-java</artifactId>
+    <groupId>co.uk.stephenknox</groupId>
+    <artifactId>osm-uk-trees</artifactId>
 
     <!-- Parent POM defines common plugins and properties. -->
-    <parent>
+<!--     <parent>
       <groupId>com.google.cloud</groupId>
       <artifactId>shared-configuration</artifactId>
       <version>1.0.0</version>
       <relativePath>java-repo-tools</relativePath>
-   </parent>
+   </parent> -->
 
     <properties>
       <appengine.app.version>1</appengine.app.version>
       <appengine.target.version>1.9.38</appengine.target.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <maven.compiler.target>1.7</maven.compiler.target>
+  <maven.compiler.source>1.7</maven.compiler.source>
     </properties>
 
     <dependencies>
@@ -54,6 +56,11 @@
             <version>1.2</version>
         </dependency>
         <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>gcloud-java-datastore</artifactId>
+            <version>0.2.7</version>
+        </dependency>
+        <dependency>
             <groupId>org.openstreetmap.osmosis</groupId>
             <artifactId>osmosis-core</artifactId>
             <version>0.45</version>
@@ -61,11 +68,6 @@
         <dependency>
             <groupId>org.openstreetmap.osmosis</groupId>
             <artifactId>osmosis-xml</artifactId>
-            <version>0.45</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openstreetmap.osmosis</groupId>
-            <artifactId>osmosis-dataset</artifactId>
             <version>0.45</version>
         </dependency>
         <dependency>
@@ -125,35 +127,24 @@
         <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory> 
                                    
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <archiveClasses>true</archiveClasses>
-                    <webResources>
-                        <!-- in order to interpolate version from pom into appengine-web.xml -->
-                        <resource>
-                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                            <filtering>true</filtering>
-                            <targetPath>WEB-INF</targetPath>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.google.appengine</groupId>
-                <artifactId>appengine-maven-plugin</artifactId>
-                <version>${appengine.target.version}</version>
-                <configuration>
-                </configuration>
-            </plugin>
-            <plugin>
-               <groupId>com.google.appengine</groupId>
-               <artifactId>gcloud-maven-plugin</artifactId>
-               <version>2.0.9.111.v20160525</version>
-            </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3</version>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <!-- Parent POM defines ${appengine.sdk.version} (updates frequently). -->
+      <plugin>
+        <groupId>com.google.appengine</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>1.9.42</version>
+<!--         <configuration>
+      <gcloud_directory>C:/PROGRA~2/Google/CLOUDS~1/google-cloud-sdk</gcloud_directory>
+    </configuration> -->
+      </plugin>
         </plugins>
     </build>
 

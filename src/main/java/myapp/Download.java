@@ -46,23 +46,11 @@ import java.io.File;
 import java.util.Set;
 import java.util.Map;
 
-import com.google.cloud.storage.Acl;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-
 public class Download extends HttpServlet {
 
   private static final String BUCKET_NAME = System.getenv("BUCKET_NAME");
-  private static Storage storage = null;
   XMLNetworkReader xmlReader;
 
-  @Override
-  public void init() {
-    storage = StorageOptions.defaultInstance().service();
-  }
-  
     @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
@@ -75,9 +63,12 @@ public class Download extends HttpServlet {
     
     XmlWriter xmlWriter;
     TagFilter rejectWayTagFilter, rejectRelationTagFilter, nodeTagFilter;
+    DBWriter dbwriter;
     
     xmlReader = new XMLNetworkReader(raw, true, CompressionMethod.BZip2);
     xmlWriter = new XmlWriter(new File("-"),CompressionMethod.None);
+    dbwriter = new DBWriter();
+
     
     Map emptymap = new HashMap<String,Set<String>>();
     Set emptyset = new HashSet<String>();
@@ -85,10 +76,10 @@ public class Download extends HttpServlet {
     rejectRelationTagFilter = new TagFilter("reject-relations",emptyset,emptymap);
     
       Map tagKVs = new HashMap<String,Set<String>>();
-      Set tagset = new HashSet<String>();
+//      Set tagset = new HashSet<String>();
 
       Set valueSet = new HashSet<String>();
-      tagset.add("shop");
+//      tagset.add("shop");
       valueSet.add("greengrocer");
       tagKVs.put("shop",valueSet);
       
@@ -97,7 +88,7 @@ public class Download extends HttpServlet {
     xmlReader.setSink(rejectWayTagFilter);
     rejectWayTagFilter.setSink(rejectRelationTagFilter);
     rejectRelationTagFilter.setSink(nodeTagFilter);
-    nodeTagFilter.setSink(xmlWriter);
+    nodeTagFilter.setSink(dbwriter);
     xmlReader.run();
     
     
