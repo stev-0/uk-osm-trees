@@ -3,4 +3,7 @@
     <application>osm-uk-trees-143012</application>
     <version>1</version>
     <threadsafe>true</threadsafe>
+    <manual-scaling>
+    <instances>1</instances>
+  </manual-scaling>
 </appengine-web-app>

@@ -54,7 +54,7 @@ public class Download extends HttpServlet {
     @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    URL url = new URL("http://download.geofabrik.de/asia/maldives-latest.osm.bz2");
+    URL url = new URL("http://download.geofabrik.de/europe/great-britain/england/hertfordshire-latest.osm.bz2");
     HttpURLConnection uc = (HttpURLConnection) url.openConnection();
     int contentLength = uc.getContentLength();
 
@@ -80,8 +80,8 @@ public class Download extends HttpServlet {
 
       Set valueSet = new HashSet<String>();
 //      tagset.add("shop");
-      valueSet.add("greengrocer");
-      tagKVs.put("shop",valueSet);
+      valueSet.add("tree");
+      tagKVs.put("natural",valueSet);
       
       nodeTagFilter = new TagFilter("accept-nodes",emptyset, tagKVs);
     

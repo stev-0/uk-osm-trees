@@ -32,24 +32,23 @@ public class DBWriter implements Sink {
 	private static Logger log = Logger.getLogger(DBWriter.class.getName());
 
 		Datastore datastore = DatastoreOptions.defaultInstance().service();
-		KeyFactory keyFactory = datastore.newKeyFactory().kind("keyKind");
-		Key key = keyFactory.newKey("keyName");
-	
+		KeyFactory keyFactory = datastore.newKeyFactory().kind("uktrees");
+		int entityCount = 0;
 
 	public void process(EntityContainer entityContainer) {
-		
-		log.log(Level.INFO, "what a bor");
-
+		entityCount += 1;
 		Collection<Tag> tags = entityContainer.getEntity().getTags();
 		for (Tag tag: tags) {
-			Entity entity = Entity.builder(key)
-		    .set("key", tag.getKey())
-		    .set("value", tag.getValue())
-		    .set("access_time", DateTime.now())
-		    .build();
-		datastore.put(entity);
+			if (tag.getKey().equals("species")  || tag.getKey().equals("genus")) {
+				Key key = keyFactory.newKey(entityContainer.getEntity().getId());
+				Entity entity = Entity.builder(key)
+				    .set("key", tag.getKey())
+				    .set("value", tag.getValue())
+				    .set("access_time", DateTime.now())
+				    .build();
+				datastore.put(entity);
+			}
 		}
-		
 	}
 
 	public void initialize(Map<String, Object> metaData) {
